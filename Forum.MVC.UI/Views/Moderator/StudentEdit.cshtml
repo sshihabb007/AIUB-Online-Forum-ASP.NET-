@@ -1,0 +1,192 @@
+﻿@model Forum.MVC.UI.Models.Users
+
+
+@using (Html.BeginForm("StudentEdit", "Moderator", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal w3-card-4 w3-centered" align="center" style="margin:0% 20% 0% 20%;">
+        <h2 class="w3-container w3-green ">Edit Profile</h2>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        @if (Model.UserType == Forum.Entity.UserType.Student)
+        {
+            <table style="width:60%">
+                <tr>
+                    <td align="center">
+                        <img id="img" src="@Url.Content(Model.PhotoUrl)" alt="NoImage" class="w3-image" style="height:300px;width:300px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Photo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <br />
+                        <input type="file" name="Photo" id="Photo" class="form-control" />
+                        @Html.ValidationMessageFor(model => model.Photo, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2 text-align", @align = "left" })
+                        <br />
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control w3-input" })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <br />
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control w3-input" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <br />
+                        @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control w3-input" } })
+                        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <br />
+                        @Html.TextBoxFor(model => model.DateOfBirth, new { @class = "form-control w3-input", @readonly = "readonly" })
+                        @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <br />
+                        @Html.DropDownListFor(model => model.Gender, new SelectList(Enum.GetValues(typeof(Forum.Entity.Gender))), "Select Gender", new { @class = "form-control w3-select" })
+                        @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.BloodGroup, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <br />
+                        @Html.DropDownListFor(model => model.BloodGroup, new SelectList(Enum.GetValues(typeof(Forum.Entity.BloodGroup))), "Select BloodGroup", new { @class = "form-control w3-select" })
+                        @Html.ValidationMessageFor(model => model.BloodGroup, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Religion, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <br />
+                        @Html.EditorFor(model => model.Religion, new { htmlAttributes = new { @class = "form-control w3-input" } })
+                        @Html.ValidationMessageFor(model => model.Religion, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <br />
+                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control w3-input" } })
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.CGPA, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <br />
+                        @Html.EditorFor(model => model.CGPA, new { htmlAttributes = new { @class = "form-control w3-input" } })
+                        @Html.ValidationMessageFor(model => model.CGPA, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Department, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <br />
+                        @Html.DropDownListFor(model => model.Department, new SelectList(Enum.GetValues(typeof(Forum.Entity.Department))), "Select Department", new { @class = "form-control w3-select" })
+                        @Html.ValidationMessageFor(model => model.Department, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr class="col-md-offset-2 col-md-10 w3-centered" align="center" id="btn" style="padding:2%;">
+                    <td>
+                        <input type="submit" onclick="return Confirm()" value="Save" class="w3-btn w3-ripple w3-green" />
+                    </td>
+                </tr>
+            </table>
+
+        }
+        else
+        {
+            <script>
+                alert("No User found");
+                document.getElementById('btn').style = "visibility: hidden";
+            </script>
+        }
+
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        $("#Photo").change(function () {
+            var file = this.value;
+            var img = document.getElementById("img");
+            var type = null;
+            var status = false;
+            if (file == '') {
+                img.src = null;
+                type = null;
+                alert("Please upload an image");
+                status = false;
+            }
+            else {
+                type = file.substring(file.lastIndexOf('.') + 1).toLowerCase();
+            }
+            if (type == "jpg" || type == "jpeg" || type == "gif" || type == "png") {
+
+                status = true;
+            }
+            else {
+                alert("Photo only allows file types of GIF, PNG, JPG, and JPEG.");
+                status = false;
+            }
+            if (status == true) {
+                if (this.files && this.files[0]) {
+                    var obj = new FileReader();
+                    obj.onload = function (data) {
+                        img.src = data.target.result;
+                    }
+                    obj.readAsDataURL(this.files[0]);
+                }
+            }
+            else {
+                var filedata = document.getElementById('file');
+                filedata.value = null;
+            }
+        })
+    });
+    function Confirm() {
+        var s = confirm("Are You Sure?")
+        if (s) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    $(document).ready(function () {
+        $("#DateOfBirth").datepicker();
+    });
+</script>
+
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+

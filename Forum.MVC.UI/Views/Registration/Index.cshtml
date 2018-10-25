@@ -1,0 +1,258 @@
+﻿@model Forum.MVC.UI.Models.Users
+<head>
+    @Styles.Render("~/MyStyle")
+    @Scripts.Render("~/MyScript")
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+</head>
+<body>
+    @using (Html.BeginForm("Index", "Registration", FormMethod.Post, new { enctype = "multipart/form-data" ,id="form"}))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal position-absolute scriptcheck" style="margin-left:15%;margin-right:15%;padding:0;" align="center">
+            <h1 class="w3-green" style="padding:0;margin-bottom:1%">Users</h1>
+            <hr />
+            <div class="row">
+                <div class="col-md-8">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.user_name, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.user_name, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                            @Html.ValidationMessageFor(model => model.user_name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-9">
+                            @Html.PasswordFor(model => model.Password, new { @class = "form-control", @required = "required" })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Confirm Password</label>
+                        <div class="col-md-9">
+                            @Html.PasswordFor(model => model.NewPassword, new { @class = "form-control", @required = "required" })
+                            @Html.ValidationMessageFor(model => model.NewPassword, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "required", @type = "email" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", @required = "required", @maxlength = "11", @minlength = "11" } })
+                            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control ", @required = "required", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Religion, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.Religion, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                            @Html.ValidationMessageFor(model => model.Religion, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Department, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-9">
+                            @Html.DropDownListFor(model => model.Department, new SelectList(Enum.GetValues(typeof(Forum.Entity.Department))), "Select Department", new { @class = "form-control", @required = "required" })
+                            @Html.ValidationMessageFor(model => model.Department, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BloodGroup, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-9">
+                            @Html.DropDownListFor(model => model.BloodGroup, new SelectList(Enum.GetValues(typeof(Forum.Entity.BloodGroup))), "Select BloodGroup", new { @class = "form-control", @required = "required" })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UserType, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-9">
+                            @Html.DropDownListFor(model => model.UserType, new SelectList(Enum.GetValues(typeof(Forum.Entity.UserType))), "Select User Type", new { @class = "form-control", @required = "required" })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CGPA, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.CGPA, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                            @Html.ValidationMessageFor(model => model.CGPA, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <img id="img" src="~/Content/img_avatar3.png" alt="No Image" class="w3-image" style="height:200px;width:200px;" />
+                    <div class="input-group col-md-12" style="margin-top:3%">
+                        <label class="input-group-btn">
+                            <span class="btn w3-green">
+                                Browse&hellip; <input name="Photo" id="Photo" type="file" style="display: none;" required>
+                            </span>
+                        </label>
+                        <input type="text" class="form-control" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-9">
+                    <input type="submit" value="Register" id="subfrm" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+    <noscript>
+        <style>
+            .scriptcheck {
+                display: none;
+            }
+        </style>
+        <h1>Please Enable javascript to Register</h1>
+    </noscript>
+    <script>
+        var value = false;
+        $(document).ready(function () {
+            $("#form").validate();
+        });
+        $(document).ready(function () {
+            $("#DateOfBirth").datepicker();
+            $("#CGPA").attr('maxlength', '4');
+        });
+        $(document).ready(function () {
+            $("#UserType").change(function () {
+                if ($('#UserType option:selected').text() !== "Student") {
+                    $("#CGPA").removeAttr("required");
+                    $("#CGPA").attr('disabled', 'disabled');
+                }
+                else if ($('#UserType option:selected').text() === "Student") {
+                        $("#CGPA").attr('required', 'required');
+                        $("#CGPA").removeAttr("disabled");
+                }
+            });
+        });
+        $(document).ready(function () {
+            $("#CGPA").on("keypress keyup blur", function (event) {
+                $(this).val($(this).val().replace(/[^0-9\.]/g, ''));
+                if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+                    event.preventDefault();
+                }
+            });
+        });
+        $(document).on('change', ':file', function () {
+            var input = $(this),
+                numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [numFiles, label]);
+        });
+        $(document).ready(function () {
+            $(':file').on('fileselect', function (event, numFiles, label) {
+
+                var input = $(this).parents('.input-group').find(':text'),
+                    log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+                if (input.length) {
+                    input.val(log);
+                } else {
+                    if (log) alert(log);
+                }
+
+            });
+        });
+        $(document).ready(function () {
+            $("#Photo").change(function () {
+                var file = this.value;
+                var img = document.getElementById("img");
+                var type = null;
+                var status = false;
+                if (file == '') {
+                    img.src = null;
+                    type = null;
+                    alert("Please upload an image");
+                    status = false;
+                }
+                else {
+                    type = file.substring(file.lastIndexOf('.') + 1).toLowerCase();
+                }
+                if (type == "jpg" || type == "jpeg" || type == "gif" || type == "png") {
+
+                    status = true;
+                }
+                else {
+                    img.src = "/Content/img_avatar3.png";
+                    $("#nm").value = null;
+                    alert("Photo only allows file types of GIF, PNG, JPG, and JPEG.");
+                    status = false;
+                }
+                if (status == true) {
+                    if (this.files && this.files[0]) {
+                        var obj = new FileReader();
+                        obj.onload = function (data) {
+                            img.src = data.target.result;
+                        }
+                        obj.readAsDataURL(this.files[0]);
+                    }
+                    value = status;
+                }
+                else {
+                    var filedata = document.getElementById('Photo');
+                    $("#nm").value = null;
+                    filedata.value = null;
+                    value = status;
+                }
+            })
+        });
+        $("#Phone").on("keypress keyup blur", function (event) {
+            $(this).val($(this).val().replace(/[^\d].+/, ""));
+            if ((event.which < 48 || event.which > 57)) {
+                event.preventDefault();
+            }
+        });
+        $(document).ready(function () {
+            $("#subfrm").click(function () {
+                if (value == false) {
+                    alert("please insert a photo");
+                    return false;
+                }
+                else if (value == true) {
+                    if (confirm("Are You Sure?")) {
+                        if ($("#Password").val === $("#NewPassword").val) {
+                            return true;
+                        }
+                        else {
+                            alert("Password and Confirm Password Dose Not Match");
+                            return false;
+                        }
+                    }
+                }
+            })
+        })
+    </script>
+</body>

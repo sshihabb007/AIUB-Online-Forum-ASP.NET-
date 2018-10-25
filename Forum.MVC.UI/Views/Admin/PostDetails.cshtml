@@ -1,0 +1,32 @@
+﻿@model Forum.MVC.UI.Models.Posts
+
+<html>
+<head>
+</head>
+<body>
+    <div class="w3-example">
+        <h2><b>@Model.Title</b></h2>
+        <div style="background-color:white;margin-top:1%;margin-bottom:2%">
+            <table>
+                <tr>
+                    <td>@Model.Body</td>
+                </tr>
+                <tr></tr>
+            </table>
+        </div>
+        <button onclick="DeletePost('@Model.Id')" style="margin-bottom:2%" class="w3-btn w3-ripple w3-green">
+            Delete
+        </button>
+    </div>
+</body>
+</html>
+<script>
+    function DeletePost(id)
+    {
+        var s = confirm("Are You Shure?");
+        if (s) {
+            document.location = '/Admin/PostDelete/' + id;
+        }
+    }
+</script>
+

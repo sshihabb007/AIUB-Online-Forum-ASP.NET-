@@ -1,0 +1,98 @@
+﻿@model IEnumerable<Forum.Web.Mvc.Models.AllPost>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/Content/w3.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        .fa-caret-up:hover {
+            color: grey;
+        }
+
+        .fa-caret-down:hover {
+            color: grey;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="w3-container">
+        <ul class="w3-ul w3-card-4" style="width: 100%; margin: 0px;padding: 0px;margin-top: 20px;">
+            <li class="w3-bar">
+                <a href="/Post/Create"><span class="w3-text-blue w3-large">*Create New Post</span></a>
+            </li>
+            @{
+                if (Model == null || Model.Count() == 0)
+                {
+                    <li class="w3-bar w3-leftbar w3-border-yellow  w3-center"><h3>No Post found !!!</h3></li>
+                }
+                else
+                {
+                    foreach (var item in Model)
+                    {
+                        if (item.Status == Forum.Entity.PostStatus.Solved)
+                        {
+                            <li class="w3-bar w3-leftbar w3-border-ripple w3-border-green">
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <td>
+                                            <a href="/Post/Details/@item.Id">
+                                                <span class="w3-text-blue w3-large">@item.Title</span>
+                                            </a>
+                                        </td>
+                                        <td rowspan="2" class="w3-border-left" align="right" style="width: 30%;">
+                                            <a href="/Post/Details/@item.Id"><span class="w3-text-blue-gray w3-large">Details</span></a> | <a href="/Post/Edit/@item.Id"><span class="w3-text-blue-gray w3-large">Edit</span></a> | <a href="/Post/Privacy/@item.Id"><span class="w3-text-blue-gray w3-large">Privacy</span></a> | <a href="/Post/Delete/@item.Id"><span class="w3-text-blue-gray w3-large">Delete</span></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @foreach (var tag in item.Tag.Split(','))
+                                            {
+                                                <span class="w3-tag w3-round w3-pale-red">@tag</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                </table>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="w3-bar w3-leftbar w3-border-ripple w3-border-red">
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <td>
+                                            <a href="/Post/Details/@item.Id">
+                                                <span class="w3-text-blue w3-large">@item.Title</span>
+                                            </a>
+                                        </td>
+                                        <td rowspan="2" class="w3-border-left" align="right" style="width: 30%;">
+                                            <a href="/Post/Details/@item.Id"><span class="w3-text-blue-gray w3-large">Details</span></a> | <a href="/Post/Edit/@item.Id"><span class="w3-text-blue-gray w3-large">Edit</span></a> | <a href="/Post/Privacy/@item.Id"><span class="w3-text-blue-gray w3-large">Privacy</span></a> | <a href="/Post/Delete/@item.Id"><span class="w3-text-blue-gray w3-large">Delete</span></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @foreach (var tag in item.Tag.Split(','))
+                                            {
+                                                <span class="w3-tag w3-round w3-pale-red">@tag</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                </table>
+                            </li>
+                        }
+                    }
+                }
+            }
+        </ul>
+    </div>
+
+</body>
+
+</html>
+

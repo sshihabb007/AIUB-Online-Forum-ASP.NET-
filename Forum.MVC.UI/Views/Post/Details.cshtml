@@ -1,0 +1,320 @@
+﻿@model Forum.Web.Mvc.Models.PostDetails
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="w3.css">
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/PostScript.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+            .tooltip .tooltiptext {
+                visibility: hidden;
+                width: 120px;
+                background-color: lightgray;
+                color: dimgray;
+                text-align: center;
+                border-radius: 6px;
+                padding: 5px 0;
+                position: absolute;
+                z-index: 1;
+                top: 150%;
+                left: 50%;
+                margin-left: -60px;
+            }
+
+                .tooltip .tooltiptext::after {
+                    content: "";
+                    position: absolute;
+                    bottom: 100%;
+                    left: 50%;
+                    margin-left: -5px;
+                    border-width: 5px;
+                    border-style: solid;
+                    border-color: transparent transparent lightgray transparent;
+                }
+
+            .tooltip:hover .tooltiptext {
+                visibility: visible;
+            }
+    </style>
+</head>
+
+<body>
+    @{
+        <div class="w3-container">
+            <ul class="w3-ul w3-card-4 w3-round-large" style="width: 90%; margin: 0px;padding: 0px;margin-top: 20px;margin-left: 5%;">
+                <li class="w3-bar">
+                    <table style="width:100%;">
+                        <tr>
+                            <td style="width:2%;vertical-align: top;">
+                                <table>
+                                    <tr>
+                                        <td align="center">
+                                            @if (Model.MyVote == Forum.Entity.VoteStatus.Like)
+                                            {
+                                                <i id="likeButton-@Model.Id" name="likeButton-@Model.Id" class="fa fa-thumbs-o-up w3-hover-text-green" style="font-size:40px;color:lightgreen" onclick="LikeFunc(@Model.Id,@Model.userID)"></i>
+                                            }
+                                            else
+                                            {
+                                                <i id="likeButton-@Model.Id" name="likeButton-@Model.Id" class="fa fa-thumbs-o-up w3-hover-text-green" style="font-size:40px;color:lightgray" onclick="LikeFunc(@Model.Id,@Model.userID)"></i>
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center"><span id="score-@Model.Id" class="w3-text-grey w3-xlarge">@Model.Score</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center">
+                                            @if (Model.MyVote == Forum.Entity.VoteStatus.Dislike)
+                                            {
+                                                <i id="dislikeButton-@Model.Id" name="dislikeButton-@Model.Id" class="fa fa-thumbs-o-up w3-hover-text-red fa-rotate-180" style="font-size:40px;color:red" onclick="DislikeFunc(@Model.Id,@Model.userID)"></i>
+                                            }
+                                            else
+                                            {
+                                                <i id="dislikeButton-@Model.Id" name="dislikeButton-@Model.Id" class="fa fa-thumbs-o-up w3-hover-text-red fa-rotate-180" style="font-size:40px;color:lightgray" onclick="DislikeFunc(@Model.Id,@Model.userID)"></i>
+                                            }
+                                        </td>
+                                    </tr>
+                                    @if (Model.Status == Forum.Entity.PostStatus.Solved)
+                                    {
+                                        <tr>
+                                            <td align="center">
+                                                    <i class="fa fa-check"  style="font-size:36px;color:lightgreen"></i>
+                                                    
+                                            </td>
+                                        </tr>
+                                    }
+                                    else if (Model.myPost)
+                                    {
+                                        <tr>
+                                            <td align="center">
+                                                <i id="solvedButton" name="solvedButton" class="fa fa-check w3-hover-text-green" style="font-size:36px;color:lightgray" onclick="SolvedPost(@Model.Id)"></i>
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </td>
+
+                            <td style="width:98%;">
+                                <table style="width:100%;">
+                                    <tr>
+                                        <td width="100%">
+                                            <table style="width:100%;">
+                                                <tr>
+                                                    <td rowspan="3" width="48px"><img src="~/Content/img_avatar3.png" alt="Avatar" class="w3-circle" style="width:100%;width: 100%;"></td>
+                                                    <td>
+                                                        <b>@Model.Name</b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        @if (Model.userPoint < 5)
+                                                        {
+                                                            <span class="w3-tag w3-round-large w3-text-white w3-dark-grey"><b>Bronze</b></span>
+                                                        }
+                                                        else if (Model.userPoint >= 5 && Model.userPoint < 15)
+                                                        {
+                                                            <span class="w3-tag w3-round-large w3-text-white w3-blue-gray w3-border"><b>Silver</b></span>
+                                                        }
+                                                        else if (Model.userPoint >= 15 && Model.userPoint < 25)
+                                                        {
+                                                            <span class="w3-tag w3-round-large w3-text-white w3-amber w3-border"><b>Gold</b></span>
+                                                        }
+                                                        else if (Model.userPoint >= 25)
+                                                        {
+                                                            <span class="w3-tag w3-round-large w3-text-white w3-green w3-border"><b>Elite</b></span>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <span class="w3-text-blue w3-xlarge">@Model.Title</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="2" width="60%"><span class="w3-text-lightblue w3-small" name="descSec">@Html.Raw(Model.Body)</span></td>
+
+                                    </tr>
+                                    <tr></tr>
+                                    <tr>
+                                        <td>
+                                            @foreach (var tag in Model.Tag.Split(','))
+                                            {
+                                                <span class="w3-tag w3-round w3-pale-red">@tag</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <hr>
+                                        </td>
+                                    </tr>
+                                    <!--Previous Comment Starts...............................................-->
+                                    @foreach (var comment in Model.comments)
+                                    {
+                                        <tr>
+                                            <td colspan="3" class="w3-border-bottom">
+                                                <table style="width: 100%;">
+                                                    <tr>
+                                                        <td style="width: 2%;vertical-align: top;" class="w3-rightbar w3-border-blue">
+                                                            <table>
+                                                                <!--Comment Evaluation Starts-->
+                                                                <tr>
+                                                                    <td align="center">
+                                                                        @if (comment.voteStatus == Forum.Entity.VoteStatus.Like)
+                                                                        {
+                                                                            <i id="likeComment-@comment.Id" name="likeComment-@comment.Id" class="fa fa-thumbs-o-up w3-hover-text-green" style="font-size:36px;color:lightgreen" onclick="LikeCommentFunc(@comment.Id, @comment.userID)"></i>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <i id="likeComment-@comment.Id" name="likeComment-@comment.Id" class="fa fa-thumbs-o-up w3-hover-text-green" style="font-size:36px;color:lightgray" onclick="LikeCommentFunc(@comment.Id, @comment.userID)"></i>
+                                                                        }
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="center"><span id="commentScore-@comment.Id" class="w3-text-grey w3-xlarge">@comment.Score</span></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="center">
+                                                                        @if (comment.voteStatus == Forum.Entity.VoteStatus.Dislike)
+                                                                        {
+                                                                            <i id="dislikeComment-@comment.Id" name="dislikeComment-@comment.Id" class="fa fa-thumbs-o-up w3-hover-text-red fa-rotate-180" style="font-size:36px;color:red" onclick="DislikeCommentFunc(@comment.Id, @comment.userID)"></i>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <i id="dislikeComment-@comment.Id" name="dislikeComment-@comment.Id" class="fa fa-thumbs-o-up w3-hover-text-red fa-rotate-180" style="font-size:36px;color:lightgray" onclick="DislikeCommentFunc(@comment.Id, @comment.userID)"></i>
+                                                                        }
+                                                                    </td>
+                                                                </tr>
+                                                                @if (comment.Status == Forum.Entity.CommentStatus.Correct)
+                                                                {
+                                                                    <tr>
+                                                                        <td align="center">
+                                                                                <i class="fa fa-check" style="font-size:36px;color:lightgreen"></i>
+                                                                        </td>
+                                                                    </tr>
+                                                                }
+                                                                else if(Model.myPost)
+                                                                {
+                                                                    <tr>
+                                                                        <td align="center">
+                                                                            <i id="solvedComment" name="solvedComment" class="fa fa-check w3-hover-text-green" style="font-size:36px;color:lightgray" onclick="SolvedComment(@comment.Id)"></i>
+                                                                        </td>
+                                                                    </tr>
+                                                                }
+                                                            </table><!--Comment Evaluation Ends-->
+                                                        </td>
+                                                        <td style="width: 98%;height:100%;vertical-align: top;">
+                                                            <table style="width: 100%;">
+                                                                <!--Comment Starts................................-->
+                                                                <tr>
+                                                                    <td style="width: 10px;vertical-align: top;"><img src="~/Content/img_avatar3.png" alt="Avatar" class="w3-circle" style="width:24px;width: 24px;"></td>
+                                                                    <td style="width: 20px;vertical-align: top;">@comment.Name</td>
+                                                                    <td style="width: 90%;">
+                                                                        <table style="width: 100%;">
+                                                                            <tr>
+                                                                                <td class="w3-light-gray w3-round-large w3-padding">@comment.comment</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <table style="width: 100%;">
+                                                                                        @foreach (var reply in comment.Replies)
+                                                                                        {
+                                                                                            <!--Reply Starts.......................-->
+                                                                                            <tr class="w3-border-bottom">
+                                                                                                <td style="width: 2%;vertical-align: top;" class="w3-border-bottom">
+                                                                                                    <table style="width: 100%;vertical-align: top;" class="w3-leftbar w3-border-blue-gray">
+                                                                                                        <!--Reply Evaluation Starts-->
+                                                                                                        <tr>
+                                                                                                            <td align="center">
+                                                                                                                @if (reply.voteStatus == Forum.Entity.VoteStatus.Like)
+                                                                                                                {
+                                                                                                                    <i id="likeReply-@reply.Id" name="likeReply-@reply.Id" class="fa fa-thumbs-o-up w3-hover-text-green" style="font-size:20px;color:lightgreen" onclick="LikeReplyFunc(@reply.Id, @reply.userID)"></i>
+                                                                                                                }
+                                                                                                                else
+                                                                                                                {
+                                                                                                                    <i id="likeReply-@reply.Id" name="likeReply-@reply.Id" class="fa fa-thumbs-o-up w3-hover-text-green" style="font-size:20px;color:lightgray" onclick="LikeReplyFunc(@reply.Id, @reply.userID)"></i>
+                                                                                                                }
+                                                                                                            </td>
+                                                                                                        </tr>
+                                                                                                        <tr>
+                                                                                                            <td align="center"><span id="replyScore-@reply.Id" class="w3-text-grey w3-xlarge">@reply.Score</span></td>
+                                                                                                        </tr>
+                                                                                                        <tr>
+                                                                                                            <td align="center">
+                                                                                                                @if (reply.voteStatus == Forum.Entity.VoteStatus.Dislike)
+                                                                                                                {
+                                                                                                                    <i id="dislikeReply-@reply.Id" name="dislikeReply-@reply.Id" class="fa fa-thumbs-o-up w3-hover-text-red fa-rotate-180" style="font-size:20px;color:red" onclick="DislikeReplyFunc(@reply.Id, @reply.userID)"></i>
+                                                                                                                }
+                                                                                                                else
+                                                                                                                {
+                                                                                                                    <i id="dislikeReply-@reply.Id" name="dislikeReply-@reply.Id" class="fa fa-thumbs-o-up w3-hover-text-red fa-rotate-180" style="font-size:20px;color:lightgray;" onclick="DislikeReplyFunc(@reply.Id, @reply.userID)"></i>
+                                                                                                                }
+                                                                                                            </td>
+                                                                                                        </tr>
+                                                                                                    </table><!--Reply Evaluation Ends-->
+                                                                                                </td>
+                                                                                                <td style="width: 98%%;" class="w3-border-bottom">
+                                                                                                    <table style="width: 100%;vertical-align: top;">
+                                                                                                        <tr>
+                                                                                                            <td style="width: 10px;vertical-align: top;"><img src="~/Content/img_avatar3.png" alt="Avatar" class="w3-circle" style="width:24px;width: 24px;"></td>
+                                                                                                            <td style="width: 20px;vertical-align: top;">@reply.Name</td>
+                                                                                                            <td style="width: 93%;" class="w3-light-gray w3-round-large w3-padding">@reply.reply</td>
+                                                                                                        </tr>
+                                                                                                    </table>
+                                                                                                </td>                                                                                                
+                                                                                            </tr>
+                                                                                        }
+
+                                                                                        <tr>
+                                                                                            <td style="width: 24px;vertical-align: top;"><img src="~/Content/img_avatar3.png" alt="Avatar" class="w3-circle" style="width:24px;width: 24px;"></td>
+                                                                                            <td colspan="2">
+                                                                                                <input class="w3-input w3-bottombar" id="reply-@comment.Id" type="text" style="width:100%" onkeyup="SubmitReply(event,@comment.Id)" placeholder="Write your reply">
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    }
+                                    <!--Previous Comment Ends-->
+                                    <!--New Comment Starts-->
+                                    <tr>
+                                        <td colspan="3">
+                                            <table style="width: 100%;">
+                                                <tr>
+                                                    <td style="width: 48px;"><img src="~/Content/img_avatar3.png" alt="Avatar" class="w3-circle" style="width:50px;width: 48px;"></td>
+                                                    <td style="width: 95%;"><input id="mainComment" name="mainComment" onkeyup="SubmitComment(event,@Model.Id)" class="w3-input w3-bottombar" type="text" style="width:100%" placeholder="Write your comment"></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+            </ul>
+        </div>
+    }
+</body>
+</html>

@@ -1,0 +1,270 @@
+﻿@model IEnumerable<Forum.Web.Mvc.Models.AllPost>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="~/Content/w3.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="~/Scripts/PostScript.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <style>
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="w3-container">
+        <ul class="w3-ul w3-card-4" style="width: 100%; margin: 0px;padding: 0px;margin-top: 20px;">
+            <li class="w3-bar">
+                <a href="/Post/Create"><span class="w3-text-blue w3-large">*Create New Post</span></a>
+            </li>
+            <li class="w3-bar">
+                <input id="search" name="search" class="w3-input w3-border w3-round-large" type="text" placeholder="Search...">
+            </li>
+            @{
+                if (Model == null)
+                {
+                    <li class="w3-bar w3-leftbar w3-border-yellow  w3-center"><h3>No Post found !!!</h3></li>
+                }
+                else
+                {
+                    <table>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="Search">
+                                    <td>
+                                        @if (item.Status == Forum.Entity.PostStatus.Solved)
+                                        {
+                        <li class="w3-bar w3-leftbar w3-border-green">
+                            <table>
+                                <tr>
+                                    <td rowspan="4" style="width:2%;">
+                                        <table>
+                                            <tr>
+                                                <td align="center">
+                                                    @if (item.MyVote == Forum.Entity.VoteStatus.Like)
+                                                    {
+                                                        <i id="likeButton-@item.Id" name="likeButton-@item.Id" class="fa fa-thumbs-o-up w3-hover-text-green" style="font-size:24px;color:lightgreen" onclick="LikeFunc(@item.Id,@item.userID)"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i id="likeButton-@item.Id" name="likeButton-@item.Id" class="fa fa-thumbs-o-up w3-hover-text-green" style="font-size:24px;color:lightgray" onclick="LikeFunc(@item.Id,@item.userID)"></i>
+                                                    }
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center"><span id="score-@item.Id" class="w3-text-grey w3-xlarge">@item.Score</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center">
+                                                    @if (item.MyVote == Forum.Entity.VoteStatus.Dislike)
+                                                    {
+                                                        <i id="dislikeButton-@item.Id" name="dislikeButton-@item.Id" class="fa fa-thumbs-o-up w3-hover-text-red fa-rotate-180" style="font-size:24px;color:red" onclick="DislikeFunc(@item.Id,@item.userID)"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i id="dislikeButton-@item.Id" name="dislikeButton-@item.Id" class="fa fa-thumbs-o-up w3-hover-text-red fa-rotate-180" style="font-size:24px;color:lightgray" onclick="DislikeFunc(@item.Id,@item.userID)"></i>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td rowspan="4" style="width:2%;">
+                                        <table class="w3-card w3-round-large w3-opacity">
+                                            <tr>
+                                                <td align="center"><span id="postVotes-@item.Id" class="w3-text-darkgrey w3-large">@item.Vote</span><br><span class="w3-border-bottom">votes</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center"><span class="w3-text-darkgrey w3-large">@item.Response</span><br>responses</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td colspan="2">
+                                        <a href="/Post/Details/@item.Id">
+                                            <span class="w3-text-blue w3-large">@item.Title</span>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2" width="60%"><span class="w3-text-lightblue w3-small">@Html.Raw(item.Body)</span></td>
+                                    <td rowspan="3" width="15%" align="left" class="w3-panel w3-pale-yellow w3-leftbar w3-border-blue">
+
+                                        <table style="width:100%;">
+                                            <tr>
+                                                <td rowspan="3" width="35%"><img src="~/Content/img_avatar3.png" alt="Avatar" class="w3-circle" style="width:100%"></td>
+                                                <td width="65%">
+                                                    <b>@item.Name</b>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    @if (item.userPoint < 5)
+                                                    {
+                                                        <span class="w3-tag w3-round-large w3-text-white w3-dark-grey"><b>Bronze</b></span>
+                                                    }
+                                                    else if (item.userPoint >= 5 && item.userPoint < 15)
+                                                    {
+                                                        <span class="w3-tag w3-round-large w3-text-white w3-blue-gray w3-border"><b>Silver</b></span>
+                                                    }
+                                                    else if (item.userPoint >= 15 && item.userPoint < 25)
+                                                    {
+                                                        <span class="w3-tag w3-round-large w3-text-white w3-amber w3-border"><b>Gold</b></span>
+                                                    }
+                                                    else if (item.userPoint >= 25)
+                                                    {
+                                                        <span class="w3-tag w3-round-large w3-text-white w3-green w3-border"><b>Elite</b></span>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr></tr>
+                                <tr>
+                                    <td>
+                                        @foreach (var tag in item.Tag.Split(','))
+                                        {
+                                            <span class="w3-tag w3-round w3-pale-red">@tag</span>
+                                        }
+                                    </td>
+                                </tr>
+                            </table>
+                        </li>
+                        }
+                        else
+                        {
+                        <li class="w3-bar w3-leftbar w3-border-orange" width="100%">
+                            <table width="100%">
+                                <tr>
+                                    <td rowspan="4" style="width:2%;vertical-align: top;">
+                                        <table>
+                                            <tr>
+                                                <td align="center">
+                                                    @if (item.MyVote == Forum.Entity.VoteStatus.Like)
+                                                    {
+                                                        <i id="likeButton-@item.Id" name="likeButton-@item.Id" class="fa fa-thumbs-o-up w3-hover-text-green" style="font-size:24px;color:lightgreen" onclick="LikeFunc(@item.Id,@item.userID)"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i id="likeButton-@item.Id" name="likeButton-@item.Id" class="fa fa-thumbs-o-up w3-hover-text-green" style="font-size:24px;color:lightgray" onclick="LikeFunc(@item.Id,@item.userID)"></i>
+                                                    }
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center"><span id="score-@item.Id" class="w3-text-grey w3-xlarge">@item.Score</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center">
+                                                    @if (item.MyVote == Forum.Entity.VoteStatus.Dislike)
+                                                    {
+                                                        <i id="dislikeButton-@item.Id" name="dislikeButton-@item.Id" class="fa fa-thumbs-o-up w3-hover-text-red fa-rotate-180" style="font-size:24px;color:red" onclick="DislikeFunc(@item.Id,@item.userID)"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i id="dislikeButton-@item.Id" name="dislikeButton-@item.Id" class="fa fa-thumbs-o-up w3-hover-text-red fa-rotate-180" style="font-size:24px;color:lightgray" onclick="DislikeFunc(@item.Id,@item.userID)"></i>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td rowspan="4" width="2%">
+                                        <table class="w3-card w3-round-large w3-opacity">
+                                            <tr>
+                                                <td align="center"><span id="postVotes-@item.Id" class="w3-text-darkgrey w3-large">@item.Vote</span><br><span class="w3-border-bottom">votes</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center"><span class="w3-text-darkgrey w3-large">@item.Response</span><br>responses</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td colspan="2">
+                                        <a href="/Post/Details/@item.Id">
+                                            <span class="w3-text-blue w3-large">@item.Title</span>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2" width="60%"><span class="w3-text-lightblue w3-small">@Html.Raw(item.Body)</span></td>
+                                    <td rowspan="3" width="15%" align="left" class="w3-panel w3-pale-yellow w3-leftbar w3-border-blue">
+
+                                        <table style="width:100%;">
+                                            <tr>
+                                                <td rowspan="3" width="35%"><img src="~/Content/img_avatar3.png" alt="Avatar" class="w3-circle" style="width:100%"></td>
+                                                <td width="65%">
+                                                    <b>@item.Name</b>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    @if (item.userPoint < 5)
+                                                    {
+                                                        <span class="w3-tag w3-round-large w3-text-white w3-dark-grey"><b>Bronze</b></span>
+                                                    }
+                                                    else if (item.userPoint >= 5 && item.userPoint < 15)
+                                                    {
+                                                        <span class="w3-tag w3-round-large w3-text-white w3-blue-gray w3-border"><b>Silver</b></span>
+                                                    }
+                                                    else if (item.userPoint >= 15 && item.userPoint < 25)
+                                                    {
+                                                        <span class="w3-tag w3-round-large w3-text-white w3-amber w3-border"><b>Gold</b></span>
+                                                    }
+                                                    else if (item.userPoint >= 25)
+                                                    {
+                                                        <span class="w3-tag w3-round-large w3-text-white w3-green w3-border"><b>Elite</b></span>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr></tr>
+                                <tr>
+                                    <td>
+                                        @foreach (var tag in item.Tag.Split(','))
+                                        {
+                                            <span class="w3-tag w3-round w3-pale-red">@tag</span>
+                                        }
+                                    </td>
+                                </tr>
+                            </table>
+                        </li>
+                        }
+                        </td>
+                    </tr>
+                            }
+                    </tbody>
+                </table>
+                    }
+                }
+            </ul>
+    </div>
+
+</body>
+
+</html>
+<script>
+    $(document).ready(function () {
+        function Contains(text_one, text_two) {
+            if (text_one.indexOf(text_two) != -1)
+                return true;
+        }
+        $('#search').keyup(function () {
+            var searchText = $('#search').val();
+            $('.Search').each(function () {
+                if (!Contains($(this).text().toLowerCase(), searchText.toLowerCase())) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            });
+        });
+
+    });
+</script>

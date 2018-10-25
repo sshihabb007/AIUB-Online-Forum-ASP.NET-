@@ -1,0 +1,62 @@
+﻿@model Forum.MVC.UI.Models.Users
+@using (Html.BeginForm("ChangePhoto","User",FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+<center>
+    <div>
+        <table align="center" style="margin-top: 5%">
+            <tr>
+                <td align="center" colspan="3">
+                    <h1 class="w3-container w3-green">Change Photo</h1>
+                </td>
+            </tr>
+            <tr>
+                <td><hr /></td>
+            </tr>
+            @Html.HiddenFor(u => u.Id, new { @value = Session["userId"].ToString() })
+            <tr><td align="center" colspan="3"> <img id="img" class="w3-border w3-padding" src="@Url.Content(Session["photo"].ToString())" width="300px;" height="300px;"> </td></tr>
+            <tr><td align="center" colspan="3"> <input type="file" id="Photo" name="Photo" placeholder="change"> </td></tr>
+        </table>
+    </div>
+    <div>
+        <input type="submit" class="btn btn-default" value="Submit" />
+    </div>
+</center>
+}
+<script>$(document).ready(function () {
+        $("#Photo").change(function () {
+            var file = this.value;
+            var img = document.getElementById("img");
+            var type = null;
+            var status = false;
+            if (file == '') {
+                img.src = null;
+                type = null;
+                alert("Please upload an image");
+                status = false;
+            }
+            else {
+                type = file.substring(file.lastIndexOf('.') + 1).toLowerCase();
+            }
+            if (type == "jpg" || type == "jpeg" || type == "gif" || type == "png") {
+
+                status = true;
+            }
+            else {
+                alert("Photo only allows file types of GIF, PNG, JPG, and JPEG.");
+                status = false;
+            }
+            if (status == true) {
+                if (this.files && this.files[0]) {
+                    var obj = new FileReader();
+                    obj.onload = function (data) {
+                        img.src = data.target.result;
+                    }
+                    obj.readAsDataURL(this.files[0]);
+                }
+            }
+            else {
+                var filedata = document.getElementById('file');
+                filedata.value = null;
+            }
+        })
+    });</script>

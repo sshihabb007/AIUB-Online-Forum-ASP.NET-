@@ -1,0 +1,22 @@
+﻿<style>
+    ul.nav.nav-tabs li:not(.active) a {
+        background-color: #eeeeee;
+        color: gray;
+    }
+    ul.nav.nav-tabs li.active a {
+        border-top:3px solid #16a765;
+    }
+</style>
+<ul class="nav nav-tabs">
+    <li class="active">
+        <a data-toggle="tab" href="#Blocked">Blocked User</a>
+    </li>
+    <li><a data-toggle="tab" href="#Pending">Pending User</a></li>
+    <li><a data-toggle="tab" href="#Other">Other User</a></li>
+</ul>
+<br />
+<div class="tab-content">
+    <div id="Blocked" class="tab-pane fade in active">@Html.Action("UserBlock")</div>
+    <div id="Pending" class="tab-pane fade in">@Html.Action("UserPending")</div>
+    <div id="Other" class="tab-pane fade in">@Html.Action("UserOther")</div>
+</div>

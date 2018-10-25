@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Forum.MVC.UI.Models.ChangeInfoRequests>
+@using Forum.Entity
+@using Forum.MVC.UI.Models
+
+<fieldset>
+    <legend>Pending Requests</legend>
+    <table id="PendngRequest" align="center" width="100%" border="1" cellspacing="0" border="1" cellpadding="5" class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr class="w3-green">
+                <th>ID</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                if (item.Status == RequestStatus.Pending)
+                {
+                    <tr>
+                        <td>@item.UserId</td>
+                        <td>@item.NameOfUser</td>
+                        <td>@item.Status</td>
+                        <td><a href="/Admin/ReviewInfo/@item.Id">Check</a></td>
+                    </tr>
+                }
+            }
+        </tbody>
+
+    </table>
+</fieldset>
+<fieldset>
+    <legend>Reviewed Requests</legend>
+    <table id="CompliteRequest" align="center" width="100%" border="1" cellspacing="0" border="1" cellpadding="5" class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr class="w3-green">
+                <th>ID</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>   
+    <tbody >
+            @foreach (var item in Model)
+            {
+                if (item.Status == RequestStatus.Approved || item.Status == RequestStatus.Rejected)
+                {
+                    <tr>
+                        <td>@item.UserId</td>
+                        <td>@item.NameOfUser</td>
+                        <td>@item.Status</td>
+                        <td><a href="/Admin/@(((List<Users>)Session["Users"]).Where(u=>u.Id==item.Id).Select(u=> u.UserType).SingleOrDefault())Profile/@item.UserId">View</a></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</fieldset>
+<script>
+    $.fn.dataTable.ext.classes.sPageButton = 'button primary_button';
+    $(document).ready(function () {
+        $('#PendngRequest').dataTable({
+            "bProcessing": true,
+            "bInfo": false
+        });
+    });
+    $(document).ready(function () {
+        $('#CompliteRequest').dataTable({
+            "bProcessing": true,
+            "bInfo": false
+        });
+    });
+</script>

@@ -1,0 +1,71 @@
+﻿@model Forum.Web.Mvc.Models.CustomComplain
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        .fa-caret-up:hover {
+            color: grey;
+        }
+
+        .fa-caret-down:hover {
+            color: grey;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="w3-card-4 w3-margin">
+
+        <header class="w3-container w3-blue">
+            <h3>Complain Details</h3>
+        </header>
+        <table class="w3-table-all w3-hoverable">
+            <tr class="w3-light-grey">
+                <th>Title</th>
+                <td>:</td>
+                <td><span class="w3-text-blue w3-large">@Model.Subject</span></td>
+            </tr>
+            <tr class="w3-light-grey">
+                <th>Name</th>
+                <td>:</td>
+                <td>@Model.Name</td>
+            </tr>
+            <tr class="w3-light-grey">
+                <th>Status</th>
+                <td>:</td>
+                <td>
+                    @switch (Model.Status)
+                    {
+                        case Forum.Entity.ComplainStatus.Approved:
+                            <span class="w3-tag w3-round w3-green">@Model.Status</span>
+                            break;
+                        case Forum.Entity.ComplainStatus.Pending:
+                            <span class="w3-tag w3-round w3-blue">@Model.Status</span>
+                            break;
+                        case Forum.Entity.ComplainStatus.Rejected:
+                            <span class="w3-tag w3-round w3-red">@Model.Status</span>
+                            break;
+                    }
+                </td>
+            </tr>
+            <tr class="w3-light-grey">
+                <th>Date</th>
+                <td>:</td>
+                <td>@Model.date</td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+
+</html>

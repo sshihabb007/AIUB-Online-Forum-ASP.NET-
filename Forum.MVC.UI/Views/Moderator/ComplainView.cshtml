@@ -1,0 +1,49 @@
+﻿@model Forum.MVC.UI.Models.Complains
+<div class="w3-example">
+    @if (Model.Status == Forum.Entity.ComplainStatus.Pending)
+    {
+        <h2>@Model.Subject</h2>
+        <div class="w3-white">
+            <table>
+                <tr>
+                    <td>
+                        @Html.Raw(Model.Description)
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <br>
+    }
+    <div class="vll">
+        <a href="/Moderator/Replay/@Model.Id"><button type="button" class="w3-btn w3-ripple w3-green" style="margin-bottom:2%">Replay</button></a>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        <button type="button" onclick="Delete('@Model.Id')" class="w3-btn w3-ripple w3-green" style="margin-bottom:2%">Delete</button>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="/Moderator/Complain" class="w3-btn w3-ripple w3-green" style="margin-bottom:2%">go back</a>
+    </div>
+    @if (Model.Status != Forum.Entity.ComplainStatus.Pending)
+    {
+        <script>
+            $(document).ready(function () {
+                $(".vll").css("display", "none");
+            });
+            alert("This Complain is not valied or already Action has been Taken ");
+        </script>
+    }
+    else
+    {
+        <script>
+            $(document).ready(function () {
+                $(".vll").css("display", "block");
+            });
+        </script>
+    }
+</div>
+<script>
+    function Delete(id)
+    {
+        var s = confirm("Are You Sure?");
+        if (s) {
+            document.location = '/Moderator/ComplainDelete/' + id;
+        }
+    }
+</script>
+

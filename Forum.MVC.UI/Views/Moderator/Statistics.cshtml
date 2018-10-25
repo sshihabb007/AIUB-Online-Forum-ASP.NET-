@@ -1,0 +1,163 @@
+﻿@model Forum.MVC.UI.Models.Statistics
+@using Forum.MVC.UI.Grapicaloperations
+<html>
+<head>
+</head>
+<body>
+
+    <table align="center" id="teachertable" width="100%" border="1" cellspacing="0" border="1" cellpadding="5" class="w3-table-all w3-hoverable">
+        <tr class="w3-green">
+            <th colspan="2" align="center">Statistic</th>
+        </tr>
+        <tr>
+            <td rowspan="2" data-toggle="modal" data-target="#UserModal" style="cursor:pointer;">
+                Users
+            </td>
+            <td>Students(@Model.Student)</td>
+        </tr>
+        <tr>
+            <td>Moderators(@Model.Moderator)</td>
+
+        </tr>
+        <tr>
+            <td rowspan="2" data-toggle="modal" data-target="#PostModal" style="cursor:pointer;">
+                Posts
+            </td>
+            <td>Solved(@Model.Solved)</td>
+        </tr>
+        <tr>
+            <td>Unsolved(@Model.Unsolved)</td>
+        </tr>
+        <tr>
+            <td rowspan="2" data-toggle="modal" data-target="#ReportModal" style="cursor:pointer;">
+                Reported
+            </td>
+            <td>ActionTaken(@Model.Actioned)</td>
+        </tr>
+        <tr>
+            <td>Pending(@Model.Complain)</td>
+        </tr>
+    </table>
+    @{
+        var report = new GraphicalStatustic();
+        var userreport = report.CreateUsersPie("Students", "Moderators", Model.Student, Model.Moderator);
+        var Postreport = report.CreateUsersPie("Solved", "Unsolved", Model.Solved, Model.Unsolved);
+        var reporte = report.CreateUsersPie("ActionTaken", "Pending", Model.Actioned, Model.Complain);
+
+    }
+    <script>
+window.onload = function () {
+var user = new CanvasJS.Chart("UserchartContainer", {
+	theme: "light1",
+	exportEnabled: true,
+	animationEnabled: true,
+	title: {
+		text: "User Stastic",
+		fontSize: 21
+	},
+	data: [{
+		type: "pie",
+		startAngle: 0,
+		toolTipContent: "<b>{label}</b>: {y}%",
+		indexLabel: "{label} - {y}%",
+		dataPoints: @Html.Raw(userreport)
+	}]
+});
+user.render();
+    var rep = new CanvasJS.Chart("PostchartContainer", {
+	theme: "light1",
+	exportEnabled: true,
+	animationEnabled: true,
+	title: {
+		text: "Post Stastic",
+		fontSize: 21
+	},
+	data: [{
+		type: "pie",
+		startAngle: 0,
+		toolTipContent: "<b>{label}</b>: {y}%",
+		indexLabel: "{label} - {y}%",
+		dataPoints: @Html.Raw(Postreport)
+	}]
+});
+rep.render();
+    var post = new CanvasJS.Chart("ReporechartContainer", {
+	theme: "light1",
+	exportEnabled: true,
+	animationEnabled: true,
+	title: {
+        text: "Report Stastic",
+		fontSize: 21
+	},
+	data: [{
+		type: "pie",
+		startAngle: 0,
+		toolTipContent: "<b>{label}</b>: {y}%",
+		indexLabel: "{label} - {y}%",
+		dataPoints: @Html.Raw(reporte)
+	}]
+});
+post.render();
+}
+    </script>
+    <!-- Modal -->
+    <div id="UserModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Graphical view</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="UserchartContainer" style="height: 370px; width: 100%;"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div id="PostModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Graphical view</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="PostchartContainer" style="height: 370px; width: 100%;"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div id="ReportModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Graphical view</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="ReporechartContainer" style="height: 370px; width: 100%;"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
+

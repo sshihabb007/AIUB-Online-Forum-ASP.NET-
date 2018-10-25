@@ -1,0 +1,46 @@
+﻿@model Forum.MVC.UI.Models.ComplainReplays
+
+<style>
+    textarea {
+        resize: none;
+    }
+</style>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="w3-example" style="padding:2%;margin:2% 20% 2% 20%" align="center">
+        <div class="form-horizontal w3-white" align="center" style="margin:2%">
+            <h2 class="w3-green">Replays</h2>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @Html.HiddenFor(model => model.ComplainId, new { @class = "form-control w3-select", @readonly = "readonly" })
+            @Html.ValidationMessageFor(model => model.To, "", new { @class = "text-danger" })
+
+            <div class="form-group" align="left">
+                @Html.LabelFor(model => model.To, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.To, new List<SelectListItem> { new SelectListItem { Text = Model.FromUser.ToString(), Value = Model.FromUser.ToString() }, new SelectListItem { Text = Model.ToUser.ToString(), Value = Model.ToUser.ToString() } }, "Select One", new { @class = "form-control w3-select" })
+                    @Html.ValidationMessageFor(model => model.To, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group" align="left">
+                @Html.LabelFor(model => model.Body, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Body, new { @class = "form-control w3-input", @cols = "20", @rows = "10" })
+                    @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Send" class="btn btn-default w3-btn w3-ripple w3-green" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

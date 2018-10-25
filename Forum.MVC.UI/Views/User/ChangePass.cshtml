@@ -1,0 +1,78 @@
+﻿@model Forum.MVC.UI.Models.Users
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Change Password</title>
+</head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="W3.css">
+<body @if (ViewBag.PassError != null) { Console.WriteLine("onload='error'"); ViewBag.PassError = null; }>
+    <div style="border: 2px solid black; width: 50%; margin-left: 25%; margin-top:5%; border-radius: 10px;">
+        <center><h1 class="w3-container w3-green w3-hover-blue">Change Password</h1></center>
+        <hr />
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal w3-card-4" align="center" style="mirgin: 30%;">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <table style="width:70%">
+                    <tr>
+                        @Html.HiddenFor(m => m.Id, new { @class = " w3-input", id = "hid" })
+                        <td>
+                            @Html.Label("Old Password", new { @align = "left", id = "opass" })
+                            <br />
+                            @Html.PasswordFor(m => m.Password, new { @class = " w3-input" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.Label("New Password", new { @align = "left" })
+                            <br />
+                            @Html.PasswordFor(m => m.NewPassword, new { @class = " w3-input", id = "npass" })
+                            @Html.ValidationMessageFor(m => m.NewPassword, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.Label("Confirm Password", new { @align = "left" })
+                            <br />
+                            @Html.Password("Confirmpass", "", new { @class = " w3-input", id = "cpass" })
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:2%"><center><input type="submit" onclick="return check()" value="Save" class="w3-btn w3-ripple w3-hover-blue w3-green" /></center></td>
+                    </tr>
+                </table>
+            </div>
+        }
+    </div>
+    <script>
+        function check() {
+            var x = document.getElementById("npass").value;
+            var y = document.getElementById("cpass").value;
+            var f = false;
+            if (x == y) {
+                alert("SuccessFull !!! 😮");
+                f = true;
+            } else {
+                alert("New Password & Confirm Password Doesnt Match");
+            }
+            return f;
+        }
+        function error() {
+            var x = document.getElementById("npass").value;
+            var y = document.getElementById("hid").value;
+            alert("Old Password Doesnt Match");
+        }
+    </script>
+</body>
+</html>
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+@model IEnumerable<Forum.Web.Mvc.Models.Rank>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+    <div class="w3-container">
+        <table class="w3-table w3-striped w3-border">
+            <tr>
+                <th>Position</th>
+                <th>Name</th>
+                <th>Dept</th>
+                <th>Points</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.position</td>
+                    <td>@item.name</td>
+                    <td>@item.department</td>
+                    <td>@item.points</td>
+                </tr>
+            }
+        </table>
+    </div>
+
+</body>
+</html>

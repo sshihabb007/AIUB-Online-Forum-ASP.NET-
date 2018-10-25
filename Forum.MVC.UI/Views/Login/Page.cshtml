@@ -1,0 +1,16 @@
+﻿@Styles.Render("~/MyStyle")
+@Scripts.Render("~/MyScript")
+@{ 
+    Layout = null;
+}
+<p><h1>this type of user is under developnent please try later</h1></p>
+<p><h2>Redeecting...please wait</h2></p>
+<script>
+    window.onload = function () {
+        window.setTimeout(function () {
+
+            window.location.href = "/Login/Logout";
+
+        }, 5000);
+    }
+</script>

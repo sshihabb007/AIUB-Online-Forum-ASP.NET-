@@ -1,0 +1,159 @@
+﻿@model Forum.MVC.UI.Models.Users
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Profile</title>
+    <link href="~/Content/W3.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/scripts/jquery-ui-1.12.1.min.js"></script>
+    <link href="~/Content/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+
+    <div class="dl-horizontal w3-code notranslate htmlHigh">
+        <center><h1 class="w3-container w3-green">User Profile</h1></center>
+
+        <hr />
+
+        <div class="w3-cell-row">
+            <div class="w3-container w3-cell w3-mobile">
+                <div class="w3-code notranslate htmlHigh">
+                    <table align="center" border="1" cellspacing="0" cellpadding="5" class="w3-table-all w3-hoverable">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+
+                            <td>
+                                @Html.DisplayFor(model => model.Name)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </th>
+
+                            <td>
+                                @Html.DisplayFor(model => model.Email)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Phone)
+                            </th>
+
+                            <td>
+                                @Html.DisplayFor(model => model.Phone)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DateOfBirth)
+                            </th>
+
+                            <td>
+                                @Html.DisplayFor(model => model.DateOfBirth)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Gender)
+                            </th>
+
+                            <td>
+                                @Html.DisplayFor(model => model.Gender)
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.BloodGroup)
+                            </th>
+
+                            <td>
+                                @Html.DisplayFor(model => model.BloodGroup)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Religion)
+                            </th>
+
+                            <td>
+                                @Html.DisplayFor(model => model.Religion)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Address)
+                            </th>
+
+                            <td>
+                                @Html.DisplayFor(model => model.Address)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Department)
+                            </th>
+
+                            <td>
+                                @Html.DisplayFor(model => model.Department)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.LastLogin)
+                            </th>
+
+                            <td>
+                                @Html.DisplayFor(model => model.LastLogin)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.LastLogout)
+                            </th>
+
+                            <td>
+                                @Html.DisplayFor(model => model.LastLogout)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.LastPost)
+                            </th>
+
+                            <td>
+                                @Html.DisplayFor(model => model.LastPost)
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="w3-container w3-cell w3-mobile" id="pic" style="width:30%;height:40%">
+                <p style="width: 200%; text-align: left;"> <img class="w3-border w3-padding" src="@Url.Content(Model.PhotoUrl)" width="30%" height="25%"> </p>
+                <button class="w3-btn w3-ripple w3-green" onclick="update()">Apply for Update</button>
+            </div>
+        </div>
+    </div>
+    <script>
+    function ReqChange() {
+        document.getElementById('frame').src = "ChangeInfoReq.html";
+    }
+    function ChangePass() {
+        document.getElementById('frame').src = "ChangePass.html";
+    }
+    function update(){
+        if(confirm("Are You Sure?"))
+        {
+            document.location='/user/UpdateInfo/';
+        }
+
+    }
+
+    </script>
+</body>
+</html>

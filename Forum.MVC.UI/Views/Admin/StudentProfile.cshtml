@@ -1,0 +1,188 @@
+﻿@model Forum.MVC.UI.Models.Users
+@using Forum.Entity
+<body>
+    <div class="w3-example">
+        <h3><b>Profile</b></h3>
+        <hr />
+        <div class="dl-horizontal w3-code notranslate htmlHigh">
+            @if (Model.UserType == UserType.Student)
+            {
+
+                <div class="w3-cell-row">
+                    <div class="w3-container w3-cell w3-mobile" style="withh:70%">
+                        <div class=" w3-code notranslate htmlHigh">
+                            <table align="center" width="100%" border="1" cellspacing="0" border="1" cellpadding="5" class="w3-table-all w3-hoverable">
+                                <tr>
+                                    <th>
+                                        @Html.DisplayFor(model => model.Name)
+                                    </th>
+
+                                    <td>
+                                        @Html.DisplayFor(model => model.Name)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Email)
+                                    </th>
+
+                                    <td>
+                                        @Html.DisplayFor(model => model.Email)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Phone)
+                                    </th>
+
+                                    <td>
+                                        @Html.DisplayFor(model => model.Phone)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.DateOfBirth)
+                                    </th>
+
+                                    <td>
+                                        @Html.DisplayFor(model => model.DateOfBirth)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Gender)
+                                    </th>
+
+                                    <td>
+                                        @Html.DisplayFor(model => model.Gender)
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BloodGroup)
+                                    </th>
+
+                                    <td>
+                                        @Html.DisplayFor(model => model.BloodGroup)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Religion)
+                                    </th>
+
+                                    <td>
+                                        @Html.DisplayFor(model => model.Religion)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Address)
+                                    </th>
+
+                                    <td>
+                                        @Html.DisplayFor(model => model.Address)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CGPA)
+                                    </th>
+
+                                    <td>
+                                        @Html.DisplayFor(model => model.CGPA)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Status)
+                                    </th>
+
+                                    <td>
+                                        @Html.DisplayFor(model => model.Status)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Department)
+                                    </th>
+
+                                    <td>
+                                        @Html.DisplayFor(model => model.Department)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.LastLogin)
+                                    </th>
+
+                                    <td>
+                                        @Html.DisplayFor(model => model.LastLogin)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.LastLogout)
+                                    </th>
+
+                                    <td>
+                                        @Html.DisplayFor(model => model.LastLogout)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.LastPost)
+                                    </th>
+
+                                    <td>
+                                        @Html.DisplayFor(model => model.LastPost)
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+                    <div class="w3-container w3-cell w3-mobile" align="center" id="pic" style="width:30%;height:40%">
+                        <img src="@Url.Content(Model.PhotoUrl)" alt="Person" style="width:200px;height:200px;margin-top:16%">
+                        <div class="w3-container" style="text-align:center;" align="center">
+                            <h4 style="text-align:center;"><b>@Html.DisplayFor(model => model.Name)</b></h4>
+                            <table width="100%">
+                                <tr>
+                                    <td>
+                                        <button class="w3-btn w3-ripple w3-green" onclick="StudentEdit('@Model.Id')">UPDATE</button>
+
+                                    </td>
+                                    <td>
+                                        <button class="w3-btn w3-ripple w3-green" onclick="StudentDelete('@Model.Id')">DELETE</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <script>
+                    alert("No User found");
+                    document.getElementById('pic').style.visibility = 'false';
+                </script>
+            }
+        </div>
+    </div>
+    <script>
+            function StudentEdit(id) {
+                var s = confirm("Are You Sure?");
+                if (s == true) {
+                    document.location = "/Admin/StudentEdit/"+id;
+                }
+        }
+        function StudentDelete(id) {
+            var s = confirm("Are You Sure?");
+            if (s == true) {
+                document.location = "/Admin/StudentRemove/" + id;
+            }
+        }
+    </script>
+</body>

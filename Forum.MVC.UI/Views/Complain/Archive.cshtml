@@ -1,0 +1,104 @@
+﻿@model Forum.Web.Mvc.Models.ComplainArchive
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .fa-caret-up:hover {
+            color: grey;
+        }
+
+        .fa-caret-down:hover {
+            color: grey;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="w3-card-4 w3-margin">
+
+        <header class="w3-container w3-blue">
+            <h3>From Me</h3>
+        </header>
+        <table class="w3-table-all w3-hoverable">
+            <thead>
+                <tr class="w3-light-grey">
+                    <th>Title</th>
+                    <th>About</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            @foreach (var item in Model.fromMe)
+            {
+                <tr class="w3-light-grey">
+                    <td><span class="w3-text-blue w3-large">@item.Subject</span></td>
+                    <td>@item.Name</td>
+                    <td>
+                        @switch (@item.Status)
+                        {
+                            case Forum.Entity.ComplainStatus.Approved:
+                                <span class="w3-tag w3-round w3-green">@item.Status</span>
+                                break;
+                            case Forum.Entity.ComplainStatus.Pending:
+                                <span class="w3-tag w3-round w3-blue">@item.Status</span>
+                                break;
+                            case Forum.Entity.ComplainStatus.Rejected:
+                                <span class="w3-tag w3-round w3-red">@item.Status</span>
+                                break;
+                        }
+                    </td>
+                    <td><a href="/Complain/Details/?id=@item.Id&flag=1">View</a></td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    <div class="w3-card-4 w3-margin">
+
+        <header class="w3-container w3-blue">
+            <h3>About Me</h3>
+        </header><table class="w3-table-all w3-hoverable">
+    <thead>
+        <tr class="w3-light-grey">
+            <th>Title</th>
+            <th>From</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model.AboutMe)
+    {
+        <tr class="w3-light-grey">
+            <td><span class="w3-text-blue w3-large">@item.Subject</span></td>
+            <td>@item.Name</td>
+            <td>
+                @switch (@item.Status)
+                {
+                    case Forum.Entity.ComplainStatus.Approved:
+                        <span class="w3-tag w3-round w3-green">@item.Status</span>
+                        break;
+                    case Forum.Entity.ComplainStatus.Pending:
+                        <span class="w3-tag w3-round w3-blue">@item.Status</span>
+                        break;
+                    case Forum.Entity.ComplainStatus.Rejected:
+                        <span class="w3-tag w3-round w3-red">@item.Status</span>
+                        break;
+                }
+            </td>
+            <td><a href="/Complain/Details/?id=@item.Id&flag=2">View</a></td>
+        </tr>
+    }
+</table>
+    </div>
+
+</body>
+
+</html>

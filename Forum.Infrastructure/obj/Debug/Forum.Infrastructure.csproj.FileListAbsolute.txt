@@ -1,0 +1,50 @@
+D:\Summer 2017-18\ATP II\Final Term\Forum\Forum.Infrastructure\bin\Debug\Forum.Infrastructure.dll.config
+D:\Summer 2017-18\ATP II\Final Term\Forum\Forum.Infrastructure\bin\Debug\Forum.Infrastructure.dll
+D:\Summer 2017-18\ATP II\Final Term\Forum\Forum.Infrastructure\bin\Debug\Forum.Infrastructure.pdb
+D:\Summer 2017-18\ATP II\Final Term\Forum\Forum.Infrastructure\bin\Debug\EntityFramework.dll
+D:\Summer 2017-18\ATP II\Final Term\Forum\Forum.Infrastructure\bin\Debug\EntityFramework.SqlServer.dll
+D:\Summer 2017-18\ATP II\Final Term\Forum\Forum.Infrastructure\bin\Debug\Forum.Entity.dll
+D:\Summer 2017-18\ATP II\Final Term\Forum\Forum.Infrastructure\bin\Debug\Forum.Entity.pdb
+D:\Summer 2017-18\ATP II\Final Term\Forum\Forum.Infrastructure\bin\Debug\Forum.Entity.dll.config
+D:\Summer 2017-18\ATP II\Final Term\Forum\Forum.Infrastructure\bin\Debug\EntityFramework.xml
+D:\Summer 2017-18\ATP II\Final Term\Forum\Forum.Infrastructure\bin\Debug\EntityFramework.SqlServer.xml
+D:\Summer 2017-18\ATP II\Final Term\Forum\Forum.Infrastructure\obj\Debug\Forum.Infrastructure.csprojAssemblyReference.cache
+D:\Summer 2017-18\ATP II\Final Term\Forum\Forum.Infrastructure\obj\Debug\Forum.Infrastructure.csproj.CoreCompileInputs.cache
+D:\Summer 2017-18\ATP II\Final Term\Forum\Forum.Infrastructure\obj\Debug\Forum.Infrastructure.csproj.CopyComplete
+D:\Summer 2017-18\ATP II\Final Term\Forum\Forum.Infrastructure\obj\Debug\Forum.Infrastructure.dll
+D:\Summer 2017-18\ATP II\Final Term\Forum\Forum.Infrastructure\obj\Debug\Forum.Infrastructure.pdb
+D:\Summer 2017-18\ATP II\Final Term\Forum\Forum.Infrastructure\obj\Debug\Forum.Infrastructure.Migrations.Forum.resources
+D:\Summer 2017-18\ATP II\Final Term\Forum\Forum.Infrastructure\obj\Debug\Forum.Infrastructure.csproj.GenerateResource.cache
+X:\AiubForum\Forum.Infrastructure\bin\Debug\Forum.Infrastructure.dll.config
+X:\AiubForum\Forum.Infrastructure\bin\Debug\Forum.Infrastructure.dll
+X:\AiubForum\Forum.Infrastructure\bin\Debug\Forum.Infrastructure.pdb
+X:\AiubForum\Forum.Infrastructure\bin\Debug\EntityFramework.dll
+X:\AiubForum\Forum.Infrastructure\bin\Debug\EntityFramework.SqlServer.dll
+X:\AiubForum\Forum.Infrastructure\bin\Debug\Forum.Entity.dll
+X:\AiubForum\Forum.Infrastructure\bin\Debug\Forum.Entity.pdb
+X:\AiubForum\Forum.Infrastructure\bin\Debug\Forum.Entity.dll.config
+X:\AiubForum\Forum.Infrastructure\bin\Debug\EntityFramework.xml
+X:\AiubForum\Forum.Infrastructure\bin\Debug\EntityFramework.SqlServer.xml
+X:\AiubForum\Forum.Infrastructure\obj\Debug\Forum.Infrastructure.csprojAssemblyReference.cache
+X:\AiubForum\Forum.Infrastructure\obj\Debug\Forum.Infrastructure.Migrations.Forum.resources
+X:\AiubForum\Forum.Infrastructure\obj\Debug\Forum.Infrastructure.csproj.GenerateResource.cache
+X:\AiubForum\Forum.Infrastructure\obj\Debug\Forum.Infrastructure.csproj.CoreCompileInputs.cache
+X:\AiubForum\Forum.Infrastructure\obj\Debug\Forum.Infrastructure.csproj.CopyComplete
+X:\AiubForum\Forum.Infrastructure\obj\Debug\Forum.Infrastructure.dll
+X:\AiubForum\Forum.Infrastructure\obj\Debug\Forum.Infrastructure.pdb
+C:\Users\ANMONA\source\repos\AiubForum\Forum.Infrastructure\bin\Debug\Forum.Infrastructure.dll.config
+C:\Users\ANMONA\source\repos\AiubForum\Forum.Infrastructure\bin\Debug\Forum.Infrastructure.dll
+C:\Users\ANMONA\source\repos\AiubForum\Forum.Infrastructure\bin\Debug\Forum.Infrastructure.pdb
+C:\Users\ANMONA\source\repos\AiubForum\Forum.Infrastructure\bin\Debug\EntityFramework.dll
+C:\Users\ANMONA\source\repos\AiubForum\Forum.Infrastructure\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\ANMONA\source\repos\AiubForum\Forum.Infrastructure\bin\Debug\Forum.Entity.dll
+C:\Users\ANMONA\source\repos\AiubForum\Forum.Infrastructure\bin\Debug\Forum.Entity.pdb
+C:\Users\ANMONA\source\repos\AiubForum\Forum.Infrastructure\bin\Debug\Forum.Entity.dll.config
+C:\Users\ANMONA\source\repos\AiubForum\Forum.Infrastructure\bin\Debug\EntityFramework.xml
+C:\Users\ANMONA\source\repos\AiubForum\Forum.Infrastructure\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\ANMONA\source\repos\AiubForum\Forum.Infrastructure\obj\Debug\Forum.Infrastructure.Migrations.Forum.resources
+C:\Users\ANMONA\source\repos\AiubForum\Forum.Infrastructure\obj\Debug\Forum.Infrastructure.csproj.GenerateResource.cache
+C:\Users\ANMONA\source\repos\AiubForum\Forum.Infrastructure\obj\Debug\Forum.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\ANMONA\source\repos\AiubForum\Forum.Infrastructure\obj\Debug\Forum.Infrastructure.csproj.CopyComplete
+C:\Users\ANMONA\source\repos\AiubForum\Forum.Infrastructure\obj\Debug\Forum.Infrastructure.dll
+C:\Users\ANMONA\source\repos\AiubForum\Forum.Infrastructure\obj\Debug\Forum.Infrastructure.pdb

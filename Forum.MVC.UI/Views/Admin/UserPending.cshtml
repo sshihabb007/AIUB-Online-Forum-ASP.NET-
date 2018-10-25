@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Forum.MVC.UI.Models.Users>
+@{
+    Layout = null;
+}
+<table id="pending" class="table  table-striped table-condensed">
+    <thead>
+        <tr class="w3-green">
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="lst">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(momodelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <a href="/Admin/UserStatus/@item.Id">Change</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+<script>
+    $(document).ready(function () {
+        $('#pending').dataTable({
+            "bProcessing": true,
+            "bInfo": false
+        });
+        $('.teachertable_length').addClass('bs-select');
+    });
+</script>
